@@ -1,17 +1,23 @@
-name: Jekyll site CI
+name: Build and Deploy Jekyll Site
 
 on:
   push:
     branches: [ main ]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - name: Build the site in the jekyll/builder container
+      - name: Build Jekyll site in Docker
         run: |
           docker run \
             -v ${{ github.workspace }}:/srv/jekyll \
@@ -27,9 +33,6 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
-    permissions:
-      pages: write
-      id-token: write
 
     steps:
       - name: Deploy to GitHub Pages
