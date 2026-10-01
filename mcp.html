@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Copilot Studio Blog</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f0f4f9;
+      color: #1a1a2e;
+    }
+
+    /* ── HEADER ── */
+    header {
+      background: linear-gradient(135deg, #0f3460, #1a73e8);
+      color: white;
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+
+    header .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    header .logo img {
+      width: 42px;
+      height: 42px;
+    }
+
+    header .logo h1 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    header .logo span {
+      color: #90caf9;
+    }
+
+    nav a {
+      color: #cce5ff;
+      text-decoration: none;
+      margin-left: 24px;
+      font-size: 0.95rem;
+      transition: color 0.2s;
+    }
+
+    nav a:hover {
+      color: #ffffff;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(135deg, #1a73e8 0%, #0d47a1 100%);
+      color: white;
+      text-align: center;
+      padding: 70px 20px;
+    }
+
+    .hero h2 {
+      font-size: 2.4rem;
+      margin-bottom: 14px;
+      font-weight: 800;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      max-width: 620px;
+      margin: 0 auto 28px;
+      color: #d0e8ff;
+    }
+
+    .hero a {
+      background: white;
+      color: #1a73e8;
+      padding: 12px 30px;
+      border-radius: 25px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1rem;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .hero a:hover {
+      background: #e3f2fd;
+    }
+
+    /* ── MAIN LAYOUT ── */
+    .container {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 30px;
+    }
+
+    /* ── BLOG CARDS ── */
+    .blog-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.13);
+    }
+
+    .card-banner {
+      background: linear-gradient(135deg, #1a73e8, #0d47a1);
+      height: 8px;
+    }
+
+    .card-body {
+      padding: 24px 28px;
+    }
+
+    .card-meta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.8rem;
+      color: #888;
+      margin-bottom: 10px;
+    }
+
+    .tag {
+      background: #e8f0fe;
+      color: #1a73e8;
+      padding: 3px 10px;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .card h3 {
+      font-size: 1.2rem;
+      color: #0d2b5e;
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      font-size: 0.93rem;
+      color: #555;
+      line-height: 1.7;
+      margin-bottom: 18px;
+    }
+
+    .read-more {
+      display: inline-block;
+      color: #1a73e8;
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 0.9rem;
+      border-bottom: 2px solid transparent;
+      transition: border-color 0.2s;
+    }
+
+    .read-more:hover {
+      border-color: #1a73e8;
+    }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .widget {
+      background: white;
+      border-radius: 12px;
+      padding: 22px;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+    }
+
+    .widget h4 {
+      font-size: 1rem;
+      color: #0d2b5e;
+      border-left: 4px solid #1a73e8;
+      padding-left: 10px;
+      margin-bottom: 16px;
+      font-weight: 700;
+    }
+
+    .widget ul {
+      list-style: none;
+    }
+
+    .widget ul li {
+      padding: 8px 0;
+      border-bottom: 1px solid #f0f0f0;
+      font-size: 0.88rem;
+      color: #444;
+    }
+
+    .widget ul li:last-child {
+      border-bottom: none;
+    }
+
+    .widget ul li a {
+      text-decoration: none;
+      color: #1a73e8;
+    }
+
+    .widget ul li a:hover {
+      text-decoration: underline;
+    }
+
+    .widget .tag-cloud {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .widget .tag-cloud span {
+      background: #e8f0fe;
+      color: #1a73e8;
+      padding: 5px 12px;
+      border-radius: 14px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .widget .tag-cloud span:hover {
+      background: #1a73e8;
+      color: white;
+    }
+
+    /* ── FEATURED BADGE ── */
+    .featured-badge {
+      background: #fff8e1;
+      border-left: 4px solid #f9a825;
+      padding: 10px 14px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      color: #7a5800;
+      margin-bottom: 14px;
+      font-weight: 600;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #0f3460;
+      color: #aac4e8;
+      text-align: center;
+      padding: 28px 20px;
+      margin-top: 50px;
+      font-size: 0.88rem;
+    }
+
+    footer strong {
+      color: white;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .container {
+        grid-template-columns: 1fr;
+      }
+      .hero h2 {
+        font-size: 1.7rem;
+      }
+      header {
+        flex-direction: column;
+        gap: 12px;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="logo">
+      <svg width="42" height="42" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="21" cy="21" r="21" fill="#ffffff22"/>
+        <path d="M13 21C13 16.5817 16.5817 13 21 13C25.4183 13 29 16.5817 29 21C29 25.4183 25.4183 29 21 29" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+        <circle cx="21" cy="21" r="4" fill="white"/>
+        <path d="M21 29V33M17 31L21 29L25 31" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <h1>Copilot <span>Studio</span> Blog</h1>
+    </div>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Tutorials</a>
+      <a href="#">Resources</a>
+      <a href="#">Community</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <div class="hero">
+    <h2>🤖 Build Smarter with Copilot Studio</h2>
+    <p>Discover guides, tips, and best practices for building powerful AI-driven copilots using Microsoft Copilot Studio.</p>
+    <a href="#">Explore All Posts →</a>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="container">
+
+    <!-- BLOG POSTS -->
+    <main class="blog-grid">
+
+      <!-- Post 1 -->
+      <article class="card">
+        <div class="card-banner"></div>
+        <div class="card-body">
+          <div class="featured-badge">⭐ Featured Post</div>
+          <div class="card-meta">
+            <span class="tag">Getting Started</span>
+            <span>📅 January 10, 2026</span>
+            <span>👤 Pallavi D.</span>
+          </div>
+          <h3>Introduction to Microsoft Copilot Studio</h3>
+          <p>
+            Microsoft Copilot Studio is a low-code platform that empowers teams to build, customize, and deploy intelligent AI copilots. Whether you're a developer or a business analyst, Copilot Studio provides the tools to integrate AI into your workflows seamlessly.
+          </p>
+          <a href="#" class="read-more">Read More →</a>
+        </div>
+      </article>
+
+      <!-- Post 2 -->
+      <article class="card">
+        <div class="card-banner"></div>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="tag">MCP Integration</span>
+            <span>📅 December 28, 2025</span>
+            <span>👤 Azure Team</span>
+          </div>
+          <h3>Connecting MCP Servers to Copilot Studio</h3>
+          <p>
+            The Model Context Protocol (MCP) opens new possibilities for Copilot Studio. Learn how to connect MCP servers, expose tools and actions, and supercharge your copilot with real-time data from GitHub, databases, and enterprise APIs.
+          </p>
+          <a href="#" class="read-more">Read More →</a>
+        </div>
+      </article>
+
+      <!-- Post 3 -->
+      <article class="card">
+        <div class="card-banner"></div>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="tag">Best Practices</span>
+            <span>📅 December 15, 2025</span>
+            <span>👤 AI Guild</span>
+          </div>
+          <h3>Designing Effective Topics and Triggers</h3>
+          <p>
+            Well-designed topics are the backbone of a great copilot experience. This post explores how to structure topics, write effective trigger phrases, use conditions and variables, and avoid common pitfalls that lead to poor conversation flows.
+          </p>
+          <a href="#" class="read-more">Read More →</a>
+        </div>
+      </article>
+
+      <!-- Post 4 -->
+      <article class="card">
+        <div class="card-banner"></div>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="tag">Advanced</span>
+            <span>📅 November 30, 2025</span>
+            <span>👤 Dev Community</span>
+          </div>
+          <h3>Using Power Automate Flows Inside Copilot Studio</h3>
+          <p>
+            Automate complex workflows by embedding Power Automate flows directly into your copilot actions. From sending emails to querying SharePoint lists, discover how to bridge Copilot Studio with the entire Microsoft 365 ecosystem.
+          </p>
+          <a href="#" class="read-more">Read More →</a>
+        </div>
+      </article>
+
+    </main>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+      <div class="widget">
+        <h4>🔥 Popular Posts</h4>
+        <ul>
+          <li><a href="#">Getting Started with Copilot Studio</a></li>
+          <li><a href="#">Top 10 Copilot Design Tips</a></li>
+          <li><a href="#">MCP vs REST: When to Use What</a></li>
+          <li><a href="#">Publishing Your Copilot to Teams</a></li>
+          <li><a href="#">AI-Powered Search in Copilot Studio</a></li>
+        </ul>
+      </div>
+
+      <div class="widget">
+        <h4>📂 Categories</h4>
+        <ul>
+          <li>🚀 Getting Started (8)</li>
+          <li>🔗 Integrations (12)</li>
+          <li>🤖 AI & NLP (6)</li>
+          <li>📋 Best Practices (9)</li>
+          <li>🔧 Advanced Dev (5)</li>
+        </ul>
+      </div>
+
+      <div class="widget">
+        <h4>🏷️ Tags</h4>
+        <div class="tag-cloud">
+          <span>Copilot Studio</span>
+          <span>MCP</span>
+          <span>Power Automate</span>
+          <span>Azure</span>
+          <span>AI</span>
+          <span>Low-Code</span>
+          <span>Chatbot</span>
+          <span>Microsoft 365</span>
+          <span>GitHub</span>
+        </div>
+      </div>
+
+      <div class="widget">
+        <h4>📬 Newsletter</h4>
+        <p style="font-size:0.86rem;color:#555;margin-bottom:12px;">Stay updated with the latest Copilot Studio tips and releases.</p>
+        <input type="email" placeholder="Enter your email" style="width:100%;padding:9px 12px;border:1px solid #ddd;border-radius:8px;font-size:0.88rem;margin-bottom:10px;outline:none;"/>
+        <button style="width:100%;padding:10px;background:#1a73e8;color:white;border:none;border-radius:8px;font-size:0.9rem;font-weight:600;cursor:pointer;">Subscribe</button>
+      </div>
+
+    </aside>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p><strong>Copilot Studio Blog</strong> &mdash; Built with ❤️ using Microsoft Copilot Studio &amp; MCP</p>
+    <p style="margin-top:6px;">© 2026 PallaviKatari · All rights reserved</p>
+  </footer>
+
+</body>
+</html>
